@@ -52,11 +52,9 @@ export default function App() {
             <Text style={styles.text}>Reciepts</Text>
           </TouchableOpacity>
           <Modal animationType="slide" isVisible={isVisible}>
-            <SafeAreaView className="flex-1">
-              <TouchableOpacity onPress={toggleModal}>
-                <Text>Close</Text>
-              </TouchableOpacity>
-            </SafeAreaView>
+            <TouchableOpacity onPress={toggleModal}>
+              <Text>Close</Text>
+            </TouchableOpacity>
           </Modal>
         </View>
       </Camera>
