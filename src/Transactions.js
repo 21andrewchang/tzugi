@@ -1,3 +1,4 @@
+import { BlurView } from "expo-blur";
 import {
   SafeAreaView,
   Text,
@@ -16,18 +17,15 @@ export default function Transactions({
   return (
     <Modal
       backdropOpacity={0.9}
-      animationType="fade"
+      animationType="slide"
       isVisible={transactionsModal}
     >
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView className="flex-1 mt-14">
           {transactions.map((transaction, index) => (
-            <View
-              key={index}
-              style={{ flexDirection: "row", marginBottom: 20 }}
-            >
-              <Text className="text-white">{transaction}</Text>
-            </View>
+            <TouchableOpacity key={index} className="my-2 bg-black rounded-lg">
+              <Text className="p-4 text-lg text-white">{transaction}</Text>
+            </TouchableOpacity>
           ))}
         </ScrollView>
         <TouchableOpacity

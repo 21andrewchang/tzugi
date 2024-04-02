@@ -15,31 +15,24 @@ export default function Reciepts({
   toggleReciepts,
 }) {
   return (
-    <Modal backdropOpacity={0.9} animationType="fade" isVisible={recieptsModal}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView style={{ flex: 1, marginTop: 20 }}>
+    <Modal
+      backdropOpacity={0.9}
+      animationType="slide"
+      isVisible={recieptsModal}
+    >
+      <SafeAreaView className="flex-1">
+        <ScrollView className="flex-1 mt-10">
           {recieptImages.map((reciept, index) => (
-            <View
-              key={index}
-              style={{ flexDirection: "row", marginBottom: 20 }}
-            >
+            <View key={index} className="flex-row items-center mb-10">
               <Image
                 source={reciept}
-                style={{
-                  flex: 1,
-                  marginRight: 10,
-                  aspectRatio: 1,
-                  resizeMode: "contain",
-                }}
+                className="flex-1 aspect-square"
+                resizeMode="contain"
               />
               <Image
                 source={reciept} // Using the same receipt for demonstration, you can replace with your actual image source
-                style={{
-                  flex: 1,
-                  marginLeft: 10,
-                  aspectRatio: 1,
-                  resizeMode: "contain",
-                }}
+                className="flex-1 aspect-square"
+                resizeMode="contain"
               />
             </View>
           ))}
