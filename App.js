@@ -1,10 +1,11 @@
 import { Camera, CameraType } from "expo-camera";
 import { useState } from "react";
-import { Button, Text, View, TouchableOpacity } from "react-native";
+import { Button, Text, View } from "react-native";
 import { BlurView } from "expo-blur";
 import Navigation from "./src/Navigation";
 import Transactions from "./src/Transactions";
 import Reciepts from "./src/Reciepts";
+import { supabase } from "./utils/supabase";
 
 export default function App() {
   const [permission, requestPermission] = Camera.useCameraPermissions();
