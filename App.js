@@ -1,5 +1,6 @@
 import { Camera, CameraType } from "expo-camera";
-import { useState } from "react";
+import { FlatList } from "react-native";
+import { useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
 import { BlurView } from "expo-blur";
 import Navigation from "./src/Navigation";
@@ -12,6 +13,31 @@ export default function App() {
   const [recieptsModal, setRecieptsModal] = useState(false);
   const [transactionsModal, setTransactionsModal] = useState(false);
   const [blur, setBlur] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const getTransactions = async () => {
+      try {
+        const { data: transactions, error } = await supabase
+          .from("transactions")
+          .select("*");
+        console.log(transactions);
+
+        if (error) {
+          console.error("Error fetching transactions:", error.message);
+          return;
+        }
+
+        if (transactions && transactions.length > 0) {
+          setTransactions(transactions);
+        }
+      } catch (error) {
+        console.error("Error fetching transactions:", error.message);
+      }
+    };
+
+    getTransactions();
+  }, []);
 
   const reciept1 = require("./assets/testReciept.png");
   const recieptImages = [reciept1, reciept1, reciept1]; // Just using the same receipt for example, you can replace with your array of receipts
@@ -48,7 +74,6 @@ export default function App() {
       </View>
     );
   }
-
   return (
     <View className="flex-1 justify-center">
       <Camera className="flex-1" type={CameraType.back}>
@@ -61,6 +86,7 @@ export default function App() {
         <Transactions
           toggleTransactions={toggleTransactions}
           transactionsModal={transactionsModal}
+          transactions={transactions}
         />
         <Reciepts
           recieptImages={recieptImages}
