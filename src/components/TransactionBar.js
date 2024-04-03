@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View, Image } from "react-native";
 
 export default function TransactionBar({ index, transaction }) {
-  const recieptIcon = require("../assets/recieptIcon.png");
+  const recieptIcon = require("../../assets/recieptIcon.png");
   return (
     <View className="flex-row my-1 h-14" key={index}>
       <TouchableOpacity className="w-14" onPress={() => {}}>

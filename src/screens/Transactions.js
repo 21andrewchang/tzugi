@@ -1,21 +1,12 @@
-import { BlurView } from "expo-blur";
-import {
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  View,
-  Image,
-} from "react-native";
+import { SafeAreaView, Text, TouchableOpacity, ScrollView } from "react-native";
 import Modal from "react-native-modal";
-import TransactionBar from "./TransactionBar";
+import TransactionBar from "../components/TransactionBar";
 
 export default function Transactions({
   transactionsModal,
   toggleTransactions,
   transactions,
 }) {
-  const recieptIcon = require("../assets/recieptIcon.png");
   console.log("transactions: ", transactions);
   return (
     <Modal
@@ -26,7 +17,11 @@ export default function Transactions({
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView className="flex-1 mt-14">
           {transactions.map((transaction, index) => (
-            <TransactionBar index={index} transaction={transaction} />
+            <TransactionBar
+              key={index}
+              index={index}
+              transaction={transaction}
+            />
           ))}
         </ScrollView>
         <TouchableOpacity

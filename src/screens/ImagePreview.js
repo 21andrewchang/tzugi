@@ -2,14 +2,13 @@ import React from "react";
 import {
   Image,
   SafeAreaView,
-  ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import Modal from "react-native-modal";
 
-const reciept = require("../assets/testReciept.png");
+const reciept = require("../../assets/testReciept.png");
 export default function ImagePreview({
   imageB64,
   imageURI,

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Modal from "react-native-modal";
 
-const reciept = require("../assets/testReciept.png");
+const reciept = require("../../assets/testReciept.png");
 export default function Reciepts({ images, recieptsModal, toggleReciepts }) {
   console.log("image uri", images[0]);
   let imageuri = images[0];

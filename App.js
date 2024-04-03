@@ -1,13 +1,14 @@
 import { Camera, CameraType } from "expo-camera";
-import { TouchableWithoutFeedback, TouchableOpacity } from "react-native";
+import { TouchableWithoutFeedback } from "react-native";
 import { useRef, useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
 import { BlurView } from "expo-blur";
-import Navigation from "./src/Navigation";
-import Transactions from "./src/Transactions";
-import Reciepts from "./src/Reciepts";
+import Navigation from "./src/components/Navigation";
+import Transactions from "./src/screens/Transactions";
+import Reciepts from "./src/screens/Reciepts";
 import { supabase } from "./utils/supabase";
-import ImagePreview from "./src/ImagePreview";
+import ImagePreview from "./src/screens/ImagePreview";
+import UtilityBar from "./src/components/UtilityBar";
 
 export default function App() {
   const [permission, requestPermission] = Camera.useCameraPermissions();
@@ -15,6 +16,7 @@ export default function App() {
   const [transactionsModal, setTransactionsModal] = useState(false);
   const [imagePreview, setPreview] = useState(false);
   const [blur, setBlur] = useState(0);
+  const [navVisible, setNavVisible] = useState(true);
 
   const [transactions, setTransactions] = useState([]);
   const [images, setImages] = useState([]);
@@ -68,7 +70,9 @@ export default function App() {
   const toggleReciepts = () => {
     if (!recieptsModal) {
       setBlur(100);
+      setNavVisible(false);
     } else {
+      setNavVisible(true);
       setBlur(0);
     }
     setRecieptsModal(!recieptsModal);
@@ -76,8 +80,10 @@ export default function App() {
   const toggleTransactions = () => {
     if (!transactionsModal) {
       setBlur(100);
+      setNavVisible(false);
     } else {
       setBlur(0);
+      setNavVisible(true);
     }
     setTransactionsModal(!transactionsModal);
   };
@@ -128,8 +134,14 @@ export default function App() {
             handleCameraReady(true);
           }}
         >
-          <BlurView intensity={blur} tint="light" className="flex-1">
+          <BlurView
+            intensity={blur}
+            tint="light"
+            className="flex-1 justify-between"
+          >
+            <UtilityBar visible={navVisible} />
             <Navigation
+              visible={navVisible}
               toggleTransactions={toggleTransactions}
               toggleReciepts={toggleReciepts}
             />
