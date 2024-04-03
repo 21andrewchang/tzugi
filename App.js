@@ -15,7 +15,11 @@ export default function App() {
   const [transactionsModal, setTransactionsModal] = useState(false);
   const [imagePreview, setPreview] = useState(false);
   const [blur, setBlur] = useState(0);
+
   const [transactions, setTransactions] = useState([]);
+  const [images, setImages] = useState([]);
+  console.log(images);
+
   const [cameraReady, setCameraReady] = useState(false);
   const [photo, setPhoto] = useState();
 
@@ -27,7 +31,6 @@ export default function App() {
         const { data: transactions, error } = await supabase
           .from("transactions")
           .select("*");
-        console.log(transactions);
 
         if (error) {
           console.error("Error fetching transactions:", error.message);
@@ -36,17 +39,31 @@ export default function App() {
 
         if (transactions && transactions.length > 0) {
           setTransactions(transactions);
+          console.log("trans set");
         }
       } catch (error) {
         console.error("Error fetching transactions:", error.message);
       }
     };
 
-    getTransactions();
-  }, []);
+    const getReciepts = () => {
+      try {
+        const { data } = supabase.storage
+          .from("reciepts")
+          .getPublicUrl("autist.PNG");
 
-  const reciept1 = require("./assets/testReciept.png");
-  const recieptImages = [reciept1, reciept1, reciept1]; // Just using the same receipt for example, you can replace with your array of receipts
+        if (data.publicUrl) {
+          setImages([data.publicUrl]);
+          console.log("set image");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getTransactions();
+    getReciepts();
+  }, []);
 
   const toggleReciepts = () => {
     if (!recieptsModal) {
@@ -123,7 +140,7 @@ export default function App() {
             transactions={transactions}
           />
           <Reciepts
-            recieptImages={recieptImages}
+            images={images}
             toggleReciepts={toggleReciepts}
             recieptsModal={recieptsModal}
           />

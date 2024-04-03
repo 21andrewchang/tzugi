@@ -9,11 +9,10 @@ import {
 } from "react-native";
 import Modal from "react-native-modal";
 
-export default function Reciepts({
-  recieptImages,
-  recieptsModal,
-  toggleReciepts,
-}) {
+const reciept = require("../assets/testReciept.png");
+export default function Reciepts({ images, recieptsModal, toggleReciepts }) {
+  console.log("image uri", images[0]);
+  let imageuri = images[0];
   return (
     <Modal
       backdropOpacity={0.9}
@@ -22,20 +21,18 @@ export default function Reciepts({
     >
       <SafeAreaView className="flex-1">
         <ScrollView className="flex-1 mt-10">
-          {recieptImages.map((reciept, index) => (
-            <View key={index} className="flex-row items-center mb-10">
-              <Image
-                source={reciept}
-                className="flex-1 aspect-square"
-                resizeMode="contain"
-              />
-              <Image
-                source={reciept} // Using the same receipt for demonstration, you can replace with your actual image source
-                className="flex-1 aspect-square"
-                resizeMode="contain"
-              />
-            </View>
-          ))}
+          <View className="flex-row items-center mb-10">
+            <Image
+              src={imageuri}
+              className="flex-1 aspect-square"
+              resizeMode="contain"
+            />
+            <Image
+              source={reciept} // Using the same receipt for demonstration, you can replace with your actual image source
+              className="flex-1 aspect-square"
+              resizeMode="contain"
+            />
+          </View>
         </ScrollView>
         <TouchableOpacity
           className="bg-black rounded-lg"
