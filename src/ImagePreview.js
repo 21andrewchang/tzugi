@@ -19,14 +19,9 @@ export default function ImagePreview({
   return (
     <Modal backdropOpacity={0.9} animationType="slide" isVisible={imagePreview}>
       <SafeAreaView className="flex-1">
-        <View key={index} className="flex-row items-center mb-10">
+        <View className="flex-row items-center mb-10">
           <Image
-            source={imageURI}
-            className="flex-1 aspect-square"
-            resizeMode="contain"
-          />
-          <Image
-            source={reciept} // Using the same receipt for demonstration, you can replace with your actual image source
+            source={{ uri: "data:image/jpg;base64," + imageB64 }}
             className="flex-1 aspect-square"
             resizeMode="contain"
           />

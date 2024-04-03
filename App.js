@@ -128,7 +128,8 @@ export default function App() {
             recieptsModal={recieptsModal}
           />
           <ImagePreview
-            imageURI={photo ? photo.base64 : ""}
+            imageURI={photo ? photo.uri : ""}
+            imageB64={photo ? photo.base64 : ""}
             togglePreview={togglePreview}
             imagePreview={imagePreview}
           />
