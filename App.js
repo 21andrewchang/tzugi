@@ -1,7 +1,7 @@
 import { Camera, CameraType } from "expo-camera";
 import { TouchableWithoutFeedback } from "react-native";
 import { useRef, useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, SafeAreaView } from "react-native";
 import { BlurView } from "expo-blur";
 import Navigation from "./src/components/Navigation";
 import Transactions from "./src/screens/Transactions";
