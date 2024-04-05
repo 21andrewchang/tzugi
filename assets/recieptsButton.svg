@@ -1,0 +1,20 @@
+<svg width="68" height="65" viewBox="0 0 68 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_b_78_355)">
+<rect width="68" height="65" rx="32.5" fill="black" fill-opacity="0.61"/>
+</g>
+<mask id="path-2-inside-1_78_355" fill="white">
+<rect x="25" y="22" width="19" height="22" rx="2"/>
+</mask>
+<rect x="25" y="22" width="19" height="22" rx="2" stroke="white" stroke-width="6" mask="url(#path-2-inside-1_78_355)"/>
+<line x1="31" y1="27.6957" x2="38" y2="27.6957" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="31" y1="31.5217" x2="38" y2="31.5217" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="31" y1="35.3478" x2="35" y2="35.3478" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<defs>
+<filter id="filter0_b_78_355" x="-8.2" y="-8.2" width="84.4" height="81.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="4.1"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_78_355"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_78_355" result="shape"/>
+</filter>
+</defs>
+</svg>
