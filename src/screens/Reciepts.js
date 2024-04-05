@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -9,30 +9,53 @@ import {
 } from "react-native";
 import Modal from "react-native-modal";
 
-const reciept = require("../../assets/testReciept.png");
 export default function Reciepts({ images, recieptsModal, toggleReciepts }) {
   console.log("image uri", images[0]);
+  const [fullScreenImage, setFullScreenImage] = useState(null);
   let imageuri = images[0];
+
   return (
     <Modal
       backdropOpacity={0.9}
       animationType="slide"
       isVisible={recieptsModal}
     >
-      <SafeAreaView className="flex-1">
+      <SafeAreaView className="flex-1 justify-center items-center">
+        {fullScreenImage && (
+          <TouchableOpacity
+            className="flex h-50"
+            onPress={() => setFullScreenImage(null)}
+          >
+            <Image
+              src={fullScreenImage}
+              className="flex-1 aspect-square"
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        )}
         <ScrollView className="flex-1 mt-10">
-          <View className="flex-row items-center mb-10">
-            <Image
-              src={imageuri}
-              className="flex-1 aspect-square"
-              resizeMode="contain"
-            />
-            <Image
-              source={reciept} // Using the same receipt for demonstration, you can replace with your actual image source
-              className="flex-1 aspect-square"
-              resizeMode="contain"
-            />
-          </View>
+          {images.map((imageUri, index) => (
+            <View key={index} className="flex-row justify-center">
+              <TouchableOpacity
+                onPressIn={() => setFullScreenImage(imageUri)}
+                onPressOut={() => setFullScreenImage(null)}
+                className="flex w-40"
+              >
+                <Image
+                  src={imageUri}
+                  className="flex-1 aspect-square"
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity className="flex w-40">
+                <Image
+                  src={imageUri}
+                  className="flex-1 aspect-square"
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+            </View>
+          ))}
         </ScrollView>
         <TouchableOpacity
           className="bg-black rounded-lg"
