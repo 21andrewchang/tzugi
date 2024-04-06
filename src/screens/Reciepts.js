@@ -13,6 +13,7 @@ export default function Reciepts({ images, recieptsModal, toggleReciepts }) {
   console.log("image uri", images[0]);
   const [fullScreenImage, setFullScreenImage] = useState(null);
   let imageuri = images[0];
+  let bondo = require("../../assets/bondosan.png");
 
   return (
     <Modal
@@ -21,18 +22,7 @@ export default function Reciepts({ images, recieptsModal, toggleReciepts }) {
       isVisible={recieptsModal}
     >
       <SafeAreaView className="flex-1 justify-center items-center">
-        {fullScreenImage && (
-          <TouchableOpacity
-            className="flex h-50"
-            onPress={() => setFullScreenImage(null)}
-          >
-            <Image
-              src={fullScreenImage}
-              className="flex-1 aspect-square"
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        )}
+        {fullScreenImage && <Image source={bondo} className="absolute z-10" />}
         <ScrollView className="flex-1 mt-10">
           {images.map((imageUri, index) => (
             <View key={index} className="flex-row justify-center">

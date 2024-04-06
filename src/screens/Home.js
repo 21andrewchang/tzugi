@@ -1,5 +1,5 @@
 import { Camera, CameraType } from "expo-camera";
-import { Modal, TouchableWithoutFeedback } from "react-native";
+import { Modal, TouchableWithoutFeedback, Image } from "react-native";
 import { useRef, useEffect, useState } from "react";
 import { Button, Text, View, SafeAreaView } from "react-native";
 import { BlurView } from "expo-blur";
@@ -10,9 +10,9 @@ import { supabase } from "../../utils/supabase";
 import ImagePreview from "./ImagePreview";
 import UtilityBar from "../components/UtilityBar";
 import { Session } from "@supabase/supabase-js";
-import Account from "./Account";
 
 export default function Home({ session }) {
+  console.log("session data", session);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [recieptsModal, setRecieptsModal] = useState(false);
   const [transactionsModal, setTransactionsModal] = useState(false);
@@ -125,6 +125,8 @@ export default function Home({ session }) {
       </SafeAreaView>
     );
   }
+  let bondo = require("../../assets/bondosan.png");
+
   return (
     <TouchableWithoutFeedback onPress={takePicture}>
       <View className="flex-1 justify-center">

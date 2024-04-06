@@ -1,16 +1,18 @@
 import { BlurView } from "expo-blur";
+import { supabase } from "../../utils/supabase";
 import { useRef, useEffect, useState } from "react";
-import { Modal, Animated, TouchableOpacity, Text, Image } from "react-native";
-import Account from "../screens/Account";
+import {
+  View,
+  Modal,
+  Animated,
+  TouchableOpacity,
+  Text,
+  Image,
+} from "react-native";
 
 const pfp = require("../../assets/pfp.png");
-export default function UtilityBar({ session, visible, toggleAccount }) {
+export default function UtilityBar({ session, visible }) {
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
-  const [modalVisible, setVisible] = useState(false);
-
-  const toggleModal = () => {
-    setVisible(!modalVisible);
-  };
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
@@ -33,7 +35,10 @@ export default function UtilityBar({ session, visible, toggleAccount }) {
               $9.75 Chipotle
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleModal} className="mr-3 w-16 h-16">
+          <TouchableOpacity
+            onPress={() => supabase.auth.signOut()}
+            className="mr-3 w-16 h-16"
+          >
             <Image
               source={pfp}
               resizeMode="cover"
@@ -42,9 +47,6 @@ export default function UtilityBar({ session, visible, toggleAccount }) {
           </TouchableOpacity>
         </BlurView>
       </Animated.View>
-      <Modal animationType="slide" transparent={false} visible={modalVisible}>
-        <Account session={session} toggleModal={toggleModal} />
-      </Modal>
     </>
   );
 }
