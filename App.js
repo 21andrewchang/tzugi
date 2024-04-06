@@ -1,16 +1,31 @@
-import { Camera, CameraType } from "expo-camera";
-import { TouchableWithoutFeedback } from "react-native";
-import { useRef, useEffect, useState } from "react";
-import { Button, Text, View, SafeAreaView } from "react-native";
-import { BlurView } from "expo-blur";
-import Navigation from "./src/components/Navigation";
-import Transactions from "./src/screens/Transactions";
-import Reciepts from "./src/screens/Reciepts";
+import "react-native-url-polyfill/auto";
+import { useState, useEffect } from "react";
 import { supabase } from "./utils/supabase";
-import ImagePreview from "./src/screens/ImagePreview";
-import UtilityBar from "./src/components/UtilityBar";
+import Login from "./src/screens/Login";
 import Home from "./src/screens/Home";
+import { View } from "react-native";
+import { Session } from "@supabase/supabase-js";
 
 export default function App() {
-  return <Home />;
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+  }, []);
+
+  return (
+    <>
+      {session && session.user ? (
+        <Home key={session.user.id} session={session} />
+      ) : (
+        <Login />
+      )}
+    </>
+  );
 }

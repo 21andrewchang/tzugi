@@ -1,5 +1,5 @@
 import { Camera, CameraType } from "expo-camera";
-import { TouchableWithoutFeedback } from "react-native";
+import { Modal, TouchableWithoutFeedback } from "react-native";
 import { useRef, useEffect, useState } from "react";
 import { Button, Text, View, SafeAreaView } from "react-native";
 import { BlurView } from "expo-blur";
@@ -9,8 +9,10 @@ import Reciepts from "./Reciepts";
 import { supabase } from "../../utils/supabase";
 import ImagePreview from "./ImagePreview";
 import UtilityBar from "../components/UtilityBar";
+import { Session } from "@supabase/supabase-js";
+import Account from "./Account";
 
-export default function Home() {
+export default function Home({ session }) {
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [recieptsModal, setRecieptsModal] = useState(false);
   const [transactionsModal, setTransactionsModal] = useState(false);
@@ -20,7 +22,6 @@ export default function Home() {
 
   const [transactions, setTransactions] = useState([]);
   const [images, setImages] = useState([]);
-  console.log(images);
 
   const [cameraReady, setCameraReady] = useState(false);
   const [photo, setPhoto] = useState();
@@ -77,6 +78,7 @@ export default function Home() {
     }
     setRecieptsModal(!recieptsModal);
   };
+
   const toggleTransactions = () => {
     if (!transactionsModal) {
       setBlur(100);
@@ -139,7 +141,7 @@ export default function Home() {
             tint="light"
             className="flex-1 justify-between"
           >
-            <UtilityBar visible={navVisible} />
+            <UtilityBar session={session} visible={navVisible} />
             <Navigation
               visible={navVisible}
               toggleTransactions={toggleTransactions}
