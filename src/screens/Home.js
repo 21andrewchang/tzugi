@@ -3,12 +3,12 @@ import { TouchableWithoutFeedback } from "react-native";
 import { useRef, useEffect, useState } from "react";
 import { Button, Text, View, SafeAreaView } from "react-native";
 import { BlurView } from "expo-blur";
-import Navigation from "./src/components/Navigation";
-import Transactions from "./src/screens/Transactions";
-import Reciepts from "./src/screens/Reciepts";
-import { supabase } from "./utils/supabase";
-import ImagePreview from "./src/screens/ImagePreview";
-import UtilityBar from "./src/components/UtilityBar";
+import Navigation from "../components/Navigation";
+import Transactions from "./Transactions";
+import Reciepts from "./Reciepts";
+import { supabase } from "../../utils/supabase";
+import ImagePreview from "./ImagePreview";
+import UtilityBar from "../components/UtilityBar";
 
 export default function Home() {
   const [permission, requestPermission] = Camera.useCameraPermissions();
