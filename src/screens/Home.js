@@ -1,5 +1,6 @@
 import { Camera, CameraType } from "expo-camera";
 import { Modal, TouchableWithoutFeedback, Image } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 import { useRef, useEffect, useState } from "react";
 import { Button, Text, View, SafeAreaView } from "react-native";
 import { BlurView } from "expo-blur";
@@ -23,6 +24,7 @@ export default function Home({ session }) {
   const [images, setImages] = useState([]);
   const [cameraReady, setCameraReady] = useState(false);
   const [photo, setPhoto] = useState();
+  const [image, setImage] = useState(null);
 
   let cameraRef = useRef();
 
@@ -127,6 +129,22 @@ export default function Home({ session }) {
     );
   }
 
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,
+      height: 0,
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
   return (
     <TouchableWithoutFeedback onPress={takePicture}>
       <View className="flex-1 justify-center">
@@ -144,6 +162,17 @@ export default function Home({ session }) {
             className="flex-1 justify-between"
           >
             <UtilityBar session={session} visible={navVisible} />
+            <Button
+              title="Pick an image from camera roll"
+              onPress={pickImage}
+            />
+            {image && (
+              <Image
+                source={{ uri: image }}
+                className="flex-1 w-20 h-800"
+                resizeMode="cover"
+              />
+            )}
             <Navigation
               visible={navVisible}
               toggleTransactions={toggleTransactions}
