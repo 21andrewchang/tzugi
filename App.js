@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { supabase } from "./utils/supabase";
 import Login from "./src/screens/Login";
 import Home from "./src/screens/Home";
-import { View } from "react-native";
-import { Session } from "@supabase/supabase-js";
 
 export default function App() {
   const [session, setSession] = useState(null);

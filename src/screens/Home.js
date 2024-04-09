@@ -9,26 +9,25 @@ import Reciepts from "./Reciepts";
 import { supabase } from "../../utils/supabase";
 import ImagePreview from "./ImagePreview";
 import UtilityBar from "../components/UtilityBar";
-import { Session } from "@supabase/supabase-js";
 
+// TODO: Uploading photos from cameraroll
 export default function Home({ session }) {
-  console.log("session data", session);
+  // States
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [recieptsModal, setRecieptsModal] = useState(false);
   const [transactionsModal, setTransactionsModal] = useState(false);
   const [imagePreview, setPreview] = useState(false);
   const [blur, setBlur] = useState(0);
   const [navVisible, setNavVisible] = useState(true);
-
   const [transactions, setTransactions] = useState([]);
   const [images, setImages] = useState([]);
-
   const [cameraReady, setCameraReady] = useState(false);
   const [photo, setPhoto] = useState();
 
   let cameraRef = useRef();
 
   useEffect(() => {
+    // Fetch transactions from supabase
     const getTransactions = async () => {
       try {
         const { data: transactions, error } = await supabase
@@ -49,6 +48,7 @@ export default function Home({ session }) {
       }
     };
 
+    // Fetch reciepts from supabase
     const getReciepts = () => {
       try {
         const { data } = supabase.storage
@@ -89,10 +89,10 @@ export default function Home({ session }) {
     }
     setTransactionsModal(!transactionsModal);
   };
+
   const handleCameraReady = (state) => {
     setCameraReady(state);
   };
-
   const takePicture = async () => {
     let options = {
       quality: 1,
@@ -110,6 +110,7 @@ export default function Home({ session }) {
     setPreview(!imagePreview);
   };
 
+  // Camera Permissions
   if (!permission) {
     // Camera permissions are still loading
     return <View />;
@@ -125,7 +126,6 @@ export default function Home({ session }) {
       </SafeAreaView>
     );
   }
-  let bondo = require("../../assets/bondosan.png");
 
   return (
     <TouchableWithoutFeedback onPress={takePicture}>

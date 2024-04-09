@@ -1,14 +1,7 @@
 import { BlurView } from "expo-blur";
 import { supabase } from "../../utils/supabase";
 import { useRef, useEffect, useState } from "react";
-import {
-  View,
-  Modal,
-  Animated,
-  TouchableOpacity,
-  Text,
-  Image,
-} from "react-native";
+import { Animated, TouchableOpacity, Text, Image } from "react-native";
 
 const pfp = require("../../assets/pfp.png");
 export default function UtilityBar({ session, visible }) {
