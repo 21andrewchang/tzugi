@@ -1,6 +1,17 @@
 import React from "react";
 import { useState } from "react";
-import { Alert, StyleSheet, View, AppState } from "react-native";
+import {
+  Alert,
+  Text,
+  ImageBackground,
+  View,
+  AppState,
+  TextInput,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import { supabase } from "../../utils/supabase";
 import { Button, Input } from "react-native-elements";
 
@@ -32,74 +43,67 @@ export default function Login() {
     setLoading(false);
   }
 
-  async function signUpWithEmail() {
+  async function handleLogin() {
     setLoading(true);
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
+    const { signinError } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
+    if (signinError) {
+      Alert.alert(error.message);
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+      });
 
-    if (error) Alert.alert(error.message);
-    if (!session)
-      Alert.alert("Please check your inbox for email verification!");
-    setLoading(false);
+      if (error) Alert.alert(error.message);
+      if (!session)
+        Alert.alert("Please check your inbox for email verification!");
+      setLoading(false);
+    }
   }
+  const bg = require("../../assets/login.png");
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Input
-          label="Email"
-          leftIcon={{ type: "font-awesome", name: "envelope" }}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          placeholder="email@address.com"
-          autoCapitalize={"none"}
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Input
-          label="Password"
-          leftIcon={{ type: "font-awesome", name: "lock" }}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          secureTextEntry={true}
-          placeholder="Password"
-          autoCapitalize={"none"}
-        />
-      </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button
-          title="Sign in"
-          disabled={loading}
-          onPress={() => signInWithEmail()}
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          title="Sign up"
-          disabled={loading}
-          onPress={() => signUpWithEmail()}
-        />
-      </View>
-    </View>
+    <ImageBackground source={bg} className="flex-1">
+      <SafeAreaView className="flex-1 justify-center">
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <View className="justify-between">
+            <View className="m-8">
+              <TextInput
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+                placeholder="email"
+                autoCapitalize={"none"}
+                placeholderTextColor={"#FFF"}
+                className="text-white"
+              />
+            </View>
+            <View className="m-8">
+              <TextInput
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+                secureTextEntry={true}
+                placeholderTextColor={"#FFF"}
+                placeholder="password"
+                autoCapitalize={"none"}
+                className="text-white/80"
+              />
+            </View>
+            <TouchableOpacity
+              className="mx-8 bg-black rounded-xl"
+              onPress={() => handleLogin()}
+            >
+              <Text className="p-4 text-center text-white">Get Started</Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 40,
-    padding: 12,
-  },
-  verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    alignSelf: "stretch",
-  },
-  mt20: {
-    marginTop: 20,
-  },
-});
