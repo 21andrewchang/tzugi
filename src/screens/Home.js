@@ -189,6 +189,7 @@ export default function Home({ session }) {
             image={photo}
             togglePreview={togglePreview}
             imagePreview={imagePreview}
+            session={session}
           />
         </Camera>
       </View>
