@@ -10,12 +10,13 @@ import {
 import Modal from "react-native-modal";
 
 const reciept = require("../../assets/testReciept.png");
-export default function ImagePreview({
-  imageB64,
-  imageURI,
-  imagePreview,
-  togglePreview,
-}) {
+export default function ImagePreview({ image, imagePreview, togglePreview }) {
+  console.log("image preview image: ", image);
+  let imageURI = image;
+  if (image.uri) {
+    imageURI = image.uri;
+  }
+
   return (
     <Modal
       backdropOpacity={0.9}
@@ -26,8 +27,8 @@ export default function ImagePreview({
     >
       <View className="flex-1 rounded-xl">
         <ImageBackground
-          className="flex-1 items-center"
-          source={{ uri: "data:image/jpg;base64," + imageB64 }}
+          className="flex-1 items-center h-full"
+          source={{ uri: imageURI }}
         >
           <View className="flex-row flex-1 items-end mb-10">
             <TouchableOpacity

@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 export default function Navigation({
   toggleTransactions,
   toggleReciepts,
+  pickImage,
   visible,
 }) {
   const fade = useRef(new Animated.Value(1)).current; // Initial value for opacity: 0
@@ -22,7 +23,13 @@ export default function Navigation({
           className="flex-1 items-center self-end mx-4 bg-black rounded"
           onPress={toggleTransactions}
         >
-          <Text className="p-4 text-white">Transactions</Text>
+          <Text className="p-4 text-white">History</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          className="flex-1 items-center self-end mx-4 bg-black rounded"
+          onPress={pickImage}
+        >
+          <Text className="p-4 text-white">Upload</Text>
         </TouchableOpacity>
         <TouchableOpacity
           className="flex-1 items-center self-end mx-4 bg-black rounded"

@@ -43,7 +43,6 @@ export default function Home({ session }) {
 
         if (transactions && transactions.length > 0) {
           setTransactions(transactions);
-          console.log("trans set");
         }
       } catch (error) {
         console.error("Error fetching transactions:", error.message);
@@ -59,7 +58,6 @@ export default function Home({ session }) {
 
         if (data.publicUrl) {
           setImages([data.publicUrl]);
-          console.log("set image");
         }
       } catch (error) {
         console.log(error);
@@ -104,7 +102,6 @@ export default function Home({ session }) {
     if (cameraReady && cameraRef.current) {
       let newPhoto = await cameraRef.current.takePictureAsync(options);
       setPhoto(newPhoto);
-      console.log(newPhoto.uri);
       togglePreview();
     }
   };
@@ -138,10 +135,11 @@ export default function Home({ session }) {
       quality: 1,
     });
 
-    console.log(result);
+    console.log("selected photo: ", result);
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setPhoto(result.assets[0].uri);
+      togglePreview();
     }
   };
 
@@ -162,10 +160,7 @@ export default function Home({ session }) {
             className="flex-1 justify-between"
           >
             <UtilityBar session={session} visible={navVisible} />
-            <Button
-              title="Pick an image from camera roll"
-              onPress={pickImage}
-            />
+
             {image && (
               <Image
                 source={{ uri: image }}
@@ -175,6 +170,7 @@ export default function Home({ session }) {
             )}
             <Navigation
               visible={navVisible}
+              pickImage={pickImage}
               toggleTransactions={toggleTransactions}
               toggleReciepts={toggleReciepts}
             />
@@ -190,8 +186,7 @@ export default function Home({ session }) {
             recieptsModal={recieptsModal}
           />
           <ImagePreview
-            imageURI={photo ? photo.uri : ""}
-            imageB64={photo ? photo.base64 : ""}
+            image={photo}
             togglePreview={togglePreview}
             imagePreview={imagePreview}
           />
