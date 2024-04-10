@@ -17,7 +17,7 @@ export default function ImagePreview({
   togglePreview,
 }) {
   let imageURI = image;
-  if (image.uri) {
+  if (image && image.uri) {
     imageURI = image.uri;
   }
 
@@ -34,14 +34,17 @@ export default function ImagePreview({
     });
 
     try {
-      let response = await fetch("http://localhost:5173/api/receipt", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "multipart/form-data",
+      let response = await fetch(
+        "https://498d-130-126-255-16.ngrok-free.app/api/receipt",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+          body: formData,
         },
-        body: formData,
-      });
+      );
 
       if (response.ok) {
         let responseJson = await response.json();
@@ -67,7 +70,6 @@ export default function ImagePreview({
           className="flex-1 items-center h-full"
           source={{ uri: imageURI }}
         >
-          <Image source={imageURI} />
           <View className="flex-row flex-1 items-end mb-10">
             <TouchableOpacity
               className="mx-4 bg-black rounded-lg"
